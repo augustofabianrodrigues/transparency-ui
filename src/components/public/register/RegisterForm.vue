@@ -6,7 +6,7 @@
           :rules="firstNameRules"
           :counter="20"
           name="firstName"
-          label="Nome"
+          :label="$t('fields.firstName')"
           type="text"
           required
         ></v-text-field>
@@ -16,7 +16,7 @@
           :rules="lastNameRules"
           :counter="50"
           name="lastName"
-          label="Sobrenome"
+          :label="$t('fields.lastName')"
           type="text"
           required
         ></v-text-field>
@@ -26,7 +26,7 @@
           :rules="emailRules"
           :counter="254"
           name="email"
-          label="E-mail"
+          :label="$t('fields.email')"
           type="email"
           required
         ></v-text-field>
@@ -36,7 +36,7 @@
           :rules="usernameRules"
           :counter="20"
           name="username"
-          label="Usuário"
+          :label="$t('fields.username')"
           type="text"
           required
         ></v-text-field>
@@ -46,7 +46,7 @@
           :rules="passwordRules"
           :counter="50"
           name="password"
-          label="Senha"
+          :label="$t('fields.password')"
           type="password"
           required
         ></v-text-field>
@@ -55,7 +55,7 @@
         <v-text-field v-model="passwordRepeat"
           :rules="passwordRepeatRules"
           name="passwordRepeat"
-          label="Repita a Senha"
+          :label="$t('fields.passwordRepeat')"
           type="password"
           required
         ></v-text-field>
@@ -70,7 +70,7 @@ export default {
     return {
       firstName: '',
       firstNameRules: [
-        v => !!v || 'Nome é obrigatório',
+        v => !!v || this.$i18n.t('fields.validations.required', [ this.$i18n.t('fields.firstName') ]),
         v => v.length <= 20 || 'Nome deve conter menos que 20 caracteres'
       ],
       lastName: '',

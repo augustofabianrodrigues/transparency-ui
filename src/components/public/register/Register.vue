@@ -9,7 +9,7 @@
         </v-slide-y-transition>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Cadastro</v-toolbar-title>
+            <v-toolbar-title>{{ $t('headers.form') }}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-alert :value="!!error" transition="fade-transition" class="mb-2" type="error">
@@ -18,9 +18,9 @@
             <register-form ref="form"/>
           </v-card-text>
           <v-card-actions>
-            <v-btn flat to="/login" class="mx-2 mb-2" color="primary">Voltar</v-btn>
+            <v-btn flat to="/login" class="mx-2 mb-2" color="primary">{{ $t('buttons.back') }}</v-btn>
             <v-spacer/>
-            <v-btn @click="submit" class="mx-2 mb-2" color="primary">Confirmar</v-btn>
+            <v-btn @click="submit" class="mx-2 mb-2" color="primary">{{ $t('buttons.confirm') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -58,7 +58,7 @@ export default {
             this.error = error
           })
       } else {
-        this.error = 'Verifique os campos com erro antes de continuar.'
+        this.error = this.$i18n.t('messages.verify_fields_before_continue')
       }
     },
     clear () {

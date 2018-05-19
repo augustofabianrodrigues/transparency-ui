@@ -31,10 +31,11 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const isValid = store.getters['auth/isValid']
     if (!isValid) {
+      const isExpired = store.getters['auth/isExpired']
       store.dispatch('auth/logoff')
       next({
         path: '/login',
-        query: { redirect: to.fullPath }
+        query: { redirect: to.fullPath, expired: isExpired }
       })
     } else {
       next()
