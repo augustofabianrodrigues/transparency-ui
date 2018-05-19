@@ -1,4 +1,4 @@
-import { REGISTERED } from '@/store/modules/auth/mutation-types'
+import { LOGGEDOFF, REGISTERED } from '@/store/modules/auth/mutation-types'
 
 /* eslint-disable import/no-webpack-loader-syntax */
 const actionsInjector = require('inject-loader!@/store/modules/auth/actions')
@@ -36,6 +36,16 @@ describe(`/store/modules/auth/actions`, () => {
   afterEach(() => {
     sandbox.restore()
     clock.restore()
+  })
+
+  it(`logoff`, () => {
+    const commit = sinon.spy()
+    const state = {}
+
+    actions.logoff({ commit, state })
+    expect(commit.args).to.deep.equal([
+      [LOGGEDOFF]
+    ])
   })
 
   it(`register`, async () => {

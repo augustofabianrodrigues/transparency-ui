@@ -1,7 +1,21 @@
 import mutations from '@/store/modules/auth/mutations'
-import { REGISTERED } from '@/store/modules/auth/mutation-types'
+import { LOGGEDOFF, REGISTERED } from '@/store/modules/auth/mutation-types'
 
 describe(`/store/modules/auth/mutations`, () => {
+  it(`loggs off`, () => {
+    const state = {
+      expireDate: Date.now() + 3600,
+      accessToken: 'token',
+      user: { name: 'foo', lastName: 'bar', username: 'foobar', email: 'foo@bar.com' }
+    }
+
+    mutations[LOGGEDOFF](state)
+
+    expect(state.user).to.equal(null)
+    expect(state.accessToken).to.equal(null)
+    expect(state.expireDate).to.equal(null)
+  })
+
   describe(`registered`, () => {
     const now = new Date()
     let clock, sandbox

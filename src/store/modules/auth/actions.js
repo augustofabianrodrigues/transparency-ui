@@ -1,6 +1,11 @@
 import authStorage from '@/utils/auth-storage'
 import api from '@/api/auth'
-import { REGISTERED } from './mutation-types'
+import { LOGGEDOFF, REGISTERED } from './mutation-types'
+
+export const logoff = ({ commit }) => {
+  commit(LOGGEDOFF)
+  authStorage.clear()
+}
 
 export const register = ({ commit }, user) => {
   return new Promise((resolve, reject) => {
@@ -26,5 +31,6 @@ export const register = ({ commit }, user) => {
 }
 
 export default {
+  logoff,
   register
 }

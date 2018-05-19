@@ -5,8 +5,6 @@ import Dashboard from '@/components/Dashboard'
 import Public from './public'
 import store from '@/store'
 
-import { LOGGEDIN, EXPIRED } from '@/constants/auth/status'
-
 Vue.use(Router)
 
 const router = new Router({
@@ -31,14 +29,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const status = store.getters['auth/status']
-    if (status !== LOGGEDIN) {
+    const isValid = store.getters['auth/isValid']
+    if (!isValid) {
+      store.dispatch('auth/logoff')
       next({
         path: '/login',
-        query: {
-          redirect: to.fullPath,
-          expired: status === EXPIRED
-        }
+        query: { redirect: to.fullPath }
       })
     } else {
       next()

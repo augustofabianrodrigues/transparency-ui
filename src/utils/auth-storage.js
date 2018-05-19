@@ -1,6 +1,6 @@
 export default {
-  set (obj) {
-    localStorage.setItem('authInfo', obj)
+  clear () {
+    localStorage.removeItem('authInfo')
   },
   get () {
     try {
@@ -9,5 +9,8 @@ export default {
     } catch (error) {
       return {}
     }
+  },
+  set (obj) {
+    localStorage.setItem('authInfo', obj)
   }
 }
