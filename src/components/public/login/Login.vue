@@ -16,8 +16,8 @@
               <v-alert :value="expired" transition="fade-transition" class="mb-2" type="info">
                 {{ $t('messages.session_expired') }}
               </v-alert>
-              <v-text-field prepend-icon="person" name="login" label="Usuário" type="text"></v-text-field>
-              <v-text-field prepend-icon="lock" name="password" label="Senha" id="password" type="password"></v-text-field>
+              <base-input v-model="login" prepend-icon="person" name="login" required></base-input>
+              <base-input v-model="password" prepend-icon="lock" name="password" type="password" required></base-input>
               <v-checkbox class="mt-2" label="Permanecer conectado"></v-checkbox>
               <v-btn to="/register" flat color="primary">{{ $t('buttons.signup') }}</v-btn>
               <v-btn to="/" flat color="primary">{{ $t('buttons.forgot_password') }}</v-btn>
@@ -42,7 +42,9 @@ export default {
 
     return {
       expired: toBoolean(expired),
-      redirect
+      redirect,
+      login: '',
+      password: ''
     }
   }
 }

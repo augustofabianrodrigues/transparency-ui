@@ -9,9 +9,16 @@ export default {
     'email': 'E-mail',
     'firstName': 'Nome',
     'lastName': 'Sobrenome',
+    'login': 'Usuário',
     'password': 'Senha',
     'passwordRepeat': 'Repita a senha',
-    'username': 'Usuário'
+    'username': 'Usuário',
+    'validations': {
+      'required': '{field} é obrigatório(a)',
+      'maxlength': '{field} deve conter menos de {maxlength} caracteres',
+      'must_be_valid': '{field} deve ser valido(a)',
+      'passwords_must_match': 'As senhas devem ser iguais'
+    }
   },
   'headers': {
     'form': 'Cadastro'

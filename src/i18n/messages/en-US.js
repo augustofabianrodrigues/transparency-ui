@@ -9,11 +9,15 @@ export default {
     'email': 'E-mail',
     'firstName': 'Name',
     'lastName': 'Last name',
+    'login': 'Login',
     'password': 'Password',
     'passwordRepeat': 'Repeat password',
     'username': 'Username',
     'validations': {
-      'required': '{0} is required'
+      'required': '{field} is required',
+      'maxlength': '{field} must be less than {maxlength} characters',
+      'must_be_valid': '{field} must be valid',
+      'passwords_must_match': 'Passwords must match'
     }
   },
   'headers': {
