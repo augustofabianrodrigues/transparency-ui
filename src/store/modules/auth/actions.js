@@ -1,6 +1,31 @@
 import authStorage from '@/utils/auth-storage'
 import api from '@/api/auth'
-import { LOGGEDOFF, REGISTERED } from './mutation-types'
+import { LOGGEDIN, LOGGEDOFF } from './mutation-types'
+
+function mapAuthResponseData (response) {
+  const { data: { accessToken, expiresIn, user } } = response
+  const now = new Date()
+
+  return {
+    accessToken,
+    user,
+    expireDate: now.setSeconds(now.getSeconds() + expiresIn)
+  }
+}
+
+export const login = ({ commit }, username, password) => {
+  return new Promise((resolve, reject) => {
+    api.login(username, password)
+      .then(mapAuthResponseData)
+      .then(payload => {
+        commit(LOGGEDIN, payload)
+        authStorage.set(payload)
+        resolve()
+      }, error => {
+        reject(error)
+      })
+  })
+}
 
 export const logoff = ({ commit }) => {
   commit(LOGGEDOFF)
@@ -10,19 +35,10 @@ export const logoff = ({ commit }) => {
 export const register = ({ commit }, user) => {
   return new Promise((resolve, reject) => {
     api.register(user)
-      .then(response => {
-        const { data: { accessToken, expiresIn, user } } = response
-        const now = new Date()
-
-        const payload = {
-          accessToken,
-          user,
-          expireDate: now.setSeconds(now.getSeconds() + expiresIn)
-        }
-
-        commit(REGISTERED, payload)
+      .then(mapAuthResponseData)
+      .then(payload => {
+        commit(LOGGEDIN, payload)
         authStorage.set(payload)
-
         resolve()
       }, error => {
         reject(error)

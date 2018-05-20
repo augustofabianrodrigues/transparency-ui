@@ -1,7 +1,7 @@
-import { LOGGEDOFF, REGISTERED } from './mutation-types'
+import { LOGGEDIN, LOGGEDOFF } from './mutation-types'
 
 export default {
-  [REGISTERED] (state, payload) {
+  [LOGGEDIN] (state, payload) {
     state.expireDate = payload.expireDate
     state.accessToken = payload.accessToken
     state.user = payload.user

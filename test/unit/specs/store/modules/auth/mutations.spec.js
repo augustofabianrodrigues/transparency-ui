@@ -1,8 +1,8 @@
 import mutations from '@/store/modules/auth/mutations'
-import { LOGGEDOFF, REGISTERED } from '@/store/modules/auth/mutation-types'
+import { LOGGEDIN, LOGGEDOFF } from '@/store/modules/auth/mutation-types'
 
 describe(`/store/modules/auth/mutations`, () => {
-  it(`loggs off`, () => {
+  it(LOGGEDOFF, () => {
     const state = {
       expireDate: Date.now() + 3600,
       accessToken: 'token',
@@ -16,7 +16,7 @@ describe(`/store/modules/auth/mutations`, () => {
     expect(state.expireDate).to.equal(null)
   })
 
-  describe(`registered`, () => {
+  describe(LOGGEDIN, () => {
     const now = new Date()
     let clock, sandbox
 
@@ -40,7 +40,7 @@ describe(`/store/modules/auth/mutations`, () => {
       const user = { name: 'foo', lastName: 'bar', username: 'foobar', email: 'foo@bar.com' }
       const accessToken = 'token'
 
-      mutations[REGISTERED](state, {
+      mutations[LOGGEDIN](state, {
         user, accessToken, expireDate
       })
 
@@ -59,7 +59,7 @@ describe(`/store/modules/auth/mutations`, () => {
       const accessToken = 'antoher-token'
       const expireDate = Date.now() + 7200
 
-      mutations[REGISTERED](state, {
+      mutations[LOGGEDIN](state, {
         user, accessToken, expireDate
       })
 
