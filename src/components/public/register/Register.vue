@@ -12,7 +12,7 @@
             <v-toolbar-title>{{ $t('headers.form') }}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-alert :value="!!error" transition="fade-transition" class="mb-2" type="error">
+            <v-alert :value="hasError" transition="fade-transition" class="mb-2" type="error">
               {{ error }}
             </v-alert>
             <register-form ref="form"/>
@@ -39,6 +39,11 @@ export default {
   components: {
     RegisterForm
   },
+  computed: {
+    hasError () {
+      return this.error.length
+    }
+  },
   data () {
     return {
       error: ''
@@ -60,9 +65,6 @@ export default {
       } else {
         this.error = this.$i18n.t('messages.verify_fields_before_continue')
       }
-    },
-    clear () {
-      this.$refs.form.reset()
     }
   }
 }

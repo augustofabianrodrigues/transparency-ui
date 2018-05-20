@@ -9,22 +9,16 @@
         </v-slide-y-transition>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title>{{ $t('headers.login') }}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form>
-              <v-alert :value="expired" transition="fade-transition" class="mb-2" type="info">
-                {{ $t('messages.session_expired') }}
-              </v-alert>
-              <base-input v-model="login" prepend-icon="person" name="login" required></base-input>
-              <base-input v-model="password" prepend-icon="lock" name="password" type="password" required></base-input>
-              <v-checkbox class="mt-2" label="Permanecer conectado"></v-checkbox>
-              <v-btn to="/register" flat color="primary">{{ $t('buttons.signup') }}</v-btn>
-              <v-btn to="/" flat color="primary">{{ $t('buttons.forgot_password') }}</v-btn>
-            </v-form>
+            <v-alert :value="hasMessage" transition="fade-transition" class="mb-2" :type="messageType">
+              {{ message }}
+            </v-alert>
+            <login-form ref="form"></login-form>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="mx-2 mb-2" color="primary">Login</v-btn>
+            <v-btn @click="submit" class="mx-2 mb-2" color="primary">{{ $t('buttons.login') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -33,18 +27,58 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+import LoginForm from '@/components/public/login/LoginForm'
 import { toBoolean } from '@/utils/convert'
+
+const { mapActions } = createNamespacedHelpers('auth')
 
 export default {
   name: 'Login',
+  components: {
+    LoginForm
+  },
+  computed: {
+    hasMessage () {
+      return this.message.length
+    }
+  },
   data () {
     const { expired, redirect } = this.$route.query
 
+    let message = ''
+    let messageType = null
+    if (toBoolean(expired)) {
+      message = this.$i18n.t('messages.session_expired')
+      messageType = 'info'
+    }
+
     return {
-      expired: toBoolean(expired),
-      redirect,
-      login: '',
-      password: ''
+      message,
+      messageType,
+      redirect
+    }
+  },
+  methods: {
+    ...mapActions([
+      'login'
+    ]),
+    submit () {
+      if (this.$refs.form.validate()) {
+        this.message = ''
+        this.messageType = 'error'
+
+        this.login(this.$refs.form.data())
+          .then(() => {
+            this.$router.push({'path': '/'})
+          }, error => {
+            this.message = error
+            this.messageType = 'error'
+          })
+      } else {
+        this.message = this.$i18n.t('messages.verify_fields_before_continue')
+        this.messageType = 'error'
+      }
     }
   }
 }

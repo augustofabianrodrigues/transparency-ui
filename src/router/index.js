@@ -30,8 +30,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const isValid = store.getters['auth/isValid']
-    if (!isValid) {
-      const isExpired = store.getters['auth/isExpired']
+    const isExpired = store.getters['auth/isExpired']
+    if (!isValid || isExpired) {
       store.dispatch('auth/logoff')
       next({
         path: '/login',

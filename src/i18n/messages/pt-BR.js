@@ -3,6 +3,7 @@ export default {
     'back': 'Voltar',
     'confirm': 'Confirmar',
     'forgot_password': 'Esqueceu sua senha?',
+    'login': 'Entrar',
     'signup': 'Quero me cadastrar'
   },
   'fields': {
@@ -21,7 +22,8 @@ export default {
     }
   },
   'headers': {
-    'form': 'Cadastro'
+    'form': 'Cadastro',
+    'login': 'Login'
   },
   'menu': {
     'dashboard': 'Painel de Controle'

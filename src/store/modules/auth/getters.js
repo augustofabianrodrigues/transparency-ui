@@ -1,7 +1,7 @@
 export default {
   isValid (state) {
     const { accessToken, expireDate, user } = state
-    return Boolean(accessToken && expireDate && user && !this.isExpired(state))
+    return Boolean(accessToken && expireDate && user)
   },
   isExpired (state) {
     const { expireDate } = state

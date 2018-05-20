@@ -3,6 +3,7 @@ export default {
     'back': 'Back',
     'confirm': 'Confirm',
     'forgot_password': 'Forgot password?',
+    'login': 'Login',
     'signup': 'I wanna sign up'
   },
   'fields': {
@@ -21,7 +22,8 @@ export default {
     }
   },
   'headers': {
-    'form': 'Form'
+    'form': 'Form',
+    'login': 'Login'
   },
   'menu': {
     'dashboard': 'Dashboard'

@@ -58,7 +58,7 @@ describe(`/store/modules/auth/actions`, () => {
     const commit = sinon.spy()
     const state = {}
 
-    await actions.login({ commit, state }, 'foobar', 'strong-password')
+    await actions.login({ commit, state }, { username: 'foobar', password: 'strong-password' })
 
     const date = new Date()
     expect(commit.args).to.deep.equal([

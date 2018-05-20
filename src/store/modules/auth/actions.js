@@ -13,9 +13,9 @@ function mapAuthResponseData (response) {
   }
 }
 
-export const login = ({ commit }, username, password) => {
+export const login = ({ commit }, credentials) => {
   return new Promise((resolve, reject) => {
-    api.login(username, password)
+    api.login(credentials)
       .then(mapAuthResponseData)
       .then(payload => {
         commit(LOGGEDIN, payload)
@@ -47,6 +47,7 @@ export const register = ({ commit }, user) => {
 }
 
 export default {
+  login,
   logoff,
   register
 }
